@@ -3,17 +3,19 @@
 
 
 exec 5>&1
-#exec 1>out.dat # sets the output file discriptor (1) and directs output to file
 
-for ((x=0; x<=9; x++))
+m=$1
+n=$2
+
+for ((x=$m; x<=$n; x++))
 do
 	mkdir $x
 	cd $x
-	for ((y=0; y<=9; y++))
+	for ((y=$m; y<=$n; y++))
 	do
 		mkdir $y
 		cd $y	
-		for ((z=0; z<=9; z++))
+		for ((z=$m; z<=$n; z++))
 		do
 			exec 1> $x$y$z.txt
 			echo $x$i$z
