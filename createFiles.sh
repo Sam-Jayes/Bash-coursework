@@ -5,7 +5,6 @@
 m=$1
 n=$2
 
-
 create_file (){
 	m=$1
 	n=$2
@@ -32,11 +31,18 @@ create_file (){
 }
 
 
-
-if [ $m -ge 0 ] && [ $m -le 9 ] && [ $n -ge 0 ] && [ $n -le 9 ] && [ $m -le $n ]
+if [ $# -eq 2 ]
 then
-	echo "i will now create some files"
+	if [ $m -ge 0 ] && [ $m -le 9 ] && [ $n -ge 0 ] && [ $n -le 9 ] && [ $m -le $n ]
+	then
+		echo "i will now create some files"
+	else
+		echo "numbers are not correct"
+	fi
+elif [ $# -le 2 ]
+then
+	echo "not enough paramaters given"
 else
-	echo "numbers are not correct"
+	echo "too many paramaters given"
 fi
 #create_file $m $n
