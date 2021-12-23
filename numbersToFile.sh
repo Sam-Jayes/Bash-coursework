@@ -7,13 +7,20 @@ exec 5>&1
 
 for ((x=0; x<=9; x++))
 do
+	mkdir $x
+	cd $x
 	for ((y=0; y<=9; y++))
 	do
+		mkdir $y
+		cd $y	
 		for ((z=0; z<=9; z++))
 		do
 			exec 1> $x$y$z.txt
 			echo $x$i$z
 		done
+		cd ..
 	done
+	cd ..
+
 done
 exec 1>&5
