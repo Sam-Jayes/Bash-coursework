@@ -42,18 +42,41 @@ files_exist(){
 	echo $exist
 }
 
+remove_files(){
+	rm -r [0-9]
+}
+
 if [ $# -eq 2 ]
 then
 	if [ $m -ge 0 ] && [ $m -le 9 ] && [ $n -ge 0 ] && [ $n -le 9 ] && [ $m -le $n ]
 	then
 		echo "i will now create some files"
 		exist=$(files_exist)
-		echo "exist = $exist"
 		if [ $exist == "false" ]
 		then
 			create_file $m $n
 		else
-			echo "filese already exist"
+			input=-1
+
+			while [ $input != 1 ] &&  [ $input != 2 ]
+			do	
+				echo "input = $input"
+				echo "filese already exist please enter 1 to overwrite current files or 2 to cancel new file creation"
+				read input
+				if [ -z "$input" ]
+				then
+					input=-1
+				fi
+			done
+			if [ $input == 1 ]
+			then 
+				remove_files
+				create_file $m $n
+			else
+				echo "file creation cancelled"
+			fi
+
+
 		fi
 	else
 		echo "numbers are not correct"
