@@ -16,10 +16,10 @@ create_file (){
 		for ((y=$m; y<=$n; y++))
 		do
 			mkdir $y
-			cd $y	
+			cd $y
 			for ((z=$m; z<=$n; z++))
 			do
-				exec 1> $x$y$z.txt
+				exec 1>$x$y$z.txt
 				echo $x$i$z
 			done
 			cd ..
@@ -36,6 +36,7 @@ then
 	if [ $m -ge 0 ] && [ $m -le 9 ] && [ $n -ge 0 ] && [ $n -le 9 ] && [ $m -le $n ]
 	then
 		echo "i will now create some files"
+		create_file $m $n
 	else
 		echo "numbers are not correct"
 	fi
@@ -45,4 +46,4 @@ then
 else
 	echo "too many paramaters given"
 fi
-#create_file $m $n
+
