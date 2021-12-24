@@ -9,6 +9,7 @@ create_file (){
 	m=$1
 	n=$2
 	exec 5>&1
+	cd CWFiles
 	for ((x=$m; x<=$n; x++))
 	do
 		mkdir $x
@@ -27,23 +28,33 @@ create_file (){
 		cd ..
 
 	done
+	cd ..
 	exec 1>&5
 }
 
 files_exist(){
 	exist=false
-	for ((i=0; i<=9; i++))
-	do
-		if [ -d $i ] 
-		then
-			exist=true 
-		fi
-	done
+	if [ -d CWFiles ]
+	then
+		cd CWFiles
+		for ((i=0; i<=9; i++))
+		do
+			if [ -d $i ] 
+			then
+				exist=true 
+			fi
+		done
+		cd ..
+	else
+		mkdir CWFiles
+	fi
 	echo $exist
 }
 
 remove_files(){
+	cd CWFiles
 	rm -r [0-9]
+	cd ..
 }
 
 m=$1
@@ -53,6 +64,7 @@ if [ $# -eq 2 ]
 then
 	if [ $m -ge 0 ] && [ $m -le 9 ] && [ $n -ge 0 ] && [ $n -le 9 ] && [ $m -le $n ]
 	then
+		#echo "$(files_exist)"
 		exist=$(files_exist)
 		if [ $exist == "false" ]
 		then
