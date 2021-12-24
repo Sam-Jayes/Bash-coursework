@@ -3,10 +3,38 @@
 
 
 
+sumOfFiles(){
+	m=$1
+	n=$2
+	cd CWFiles
+	sum=0
+	for(( x=$m; x<=$n; x++ ))
+	do
+		cd $x
+		for (( y=$m; y<=$n; y++ ))
+		do
+			cd $y
+			for (( z=$m; z<=$n; z++ ))
+			do
+				if [ -f $x$y$z.txt ]
+				then	 
+					exec 0<$x$y$z.txt
+					read number
+					sum=$(($sum + $number))
+				fi
+			done
+			cd ..
+		done
+		cd ..
+	done
+	cd ..
+	echo $sum
+
+}
 
 
-
-
+m=$1
+n=$2
 
 if [ -d CWFiles ]
 then	
@@ -25,10 +53,14 @@ then
 	cd ..
 fi
 
-if [ -z $low ] || [ -z $high ] || [-d CWFiles ]
-then
-	echo "no files exist"
-fi
-
 echo "low: $low"
 echo "high: $high"
+
+
+
+
+
+echo $(sumOfFiles $m $n)
+
+
+
