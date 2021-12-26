@@ -33,8 +33,14 @@ sumOfFiles(){
 }
 
 
-m=$1
-n=$2
+if [[ "$1" =~ ^[0-9]+$ ]] && [[ "$2" =~ ^[0-9]+$ ]]
+then
+	m=$1
+	n=$2
+fi
+
+echo "m: $m"
+echo "n: $n"
 
 if [ -d CWFiles ]
 then	
@@ -52,15 +58,30 @@ then
 	done
 	cd ..
 fi
-
+ 
 echo "low: $low"
-echo "high: $high"
-
-
-
-
-
-echo $(sumOfFiles $m $n)
-
+echo "high: $high" 
+if [ $# -eq 2 ]
+then
+	if [ -z "$low" ] && [ -z "$high" ]
+	then	
+		echo "No files have exist"
+	elif [ -z "$m" ] && [ -z "$n" ]
+	then
+		echo "invalid inputs"
+	else
+		if [ $m -ge $low ] && [ $m -le $high ] && [ $n -ge $low ] && [ $n -le $high ] && [ $m -le $n ]
+		then
+			echo $(sumOfFiles $m $n)
+		else
+			echo "Invalid values input"
+		fi
+	fi
+elif [ $# -lt 2 ]
+then
+	echo "Not Enough Paramaters Given"
+else
+	echo "Too Many Paramaters Given"
+fi
 
 
