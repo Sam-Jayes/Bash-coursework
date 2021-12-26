@@ -57,10 +57,14 @@ remove_files(){
 	cd ..
 }
 
-m=$1
-n=$2
 
-if [ $# -eq 2 ]
+if [[ "$1" =~ ^[0-9]+$ ]] && [[ "$2" =~ ^[0-9]+$ ]]
+then
+	m=$1
+	n=$2
+fi
+
+if [ $# -eq 2 ] && ! [ -z "$m" ] && ! [ -z "$n" ]
 then
 	if [ $m -ge 0 ] && [ $m -le 9 ] && [ $n -ge 0 ] && [ $n -le 9 ] && [ $m -le $n ]
 	then
@@ -77,7 +81,7 @@ then
 			do
 				echo "Filese already exist, please enter 1 to overwrite current files or 2 to cancel new file creation"
 				read input
-				if [ -z "$input" ]
+				if [ -z "$input" ] 
 				then
 					input=-1
 				fi
@@ -96,10 +100,13 @@ then
 	else
 		echo "Numbers Input Are Not Valid"
 	fi
-elif [ $# -le 2 ]
+elif [ $# -lt 2 ]
 then
 	echo "Not Enough Paramaters Given"
-else
+elif [ $# -gt 2 ] 
+then
 	echo "Too Many Paramaters Given"
+else
+	echo "Invalid input values given"
 fi
 
